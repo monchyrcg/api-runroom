@@ -10,7 +10,9 @@ class Item {
     public int $sell_in;
     public int $quality;
 
-    const MINUS = '<';
+    const name_age = 'Aged Brie';
+    const name_backstage = 'Backstage passes to a TAFKAL80ETC concert';
+    const name_sulfure = 'Sulfuras, Hand of Ragnaros';
 
     function __construct(string $name, int $sell_in, int $quality) {
         $this->name = $name;
@@ -18,8 +20,45 @@ class Item {
         $this->quality = $quality;
     }
 
-    public function __toString() {
+    public function __toString(): string
+    {
         return "{$this->name}, {$this->sell_in}, {$this->quality}";
+    }
+
+    public function sellIsNegative(): void
+    {
+        if(!$this->equalName(self::name_age)){
+            if(!$this->equalName(self::name_backstage)){
+                if ($this->greaterThan('quality', 0)){
+                    if(!$this->equalName(self::name_sulfure)){
+                        $this->minusValue('quality');
+                    }
+                }
+            } else {
+                $this->setValue('quality',  0);
+            }
+        } else {
+            if ($this->lessThan('quality', 50)){
+                $this->addValue('quality');
+            }
+        }
+    }
+
+    public function qualityEqualFifty(): void
+    {
+        $this->addValue('quality');
+        if($this->equalName(self::name_backstage)){
+            if ($this->lessThan('sell_in', 11)){
+                if ($this->lessThan('quality', 50)){
+                    $this->addValue('quality');
+                }
+            }
+            if ($this->lessThan('sell_in', 6)){
+                if ($this->lessThan('quality', 50)){
+                    $this->addValue('quality');
+                }
+            }
+        }
     }
 
     public function equalName(string $name): bool
@@ -27,12 +66,12 @@ class Item {
         return $this->name == $name;
     }
 
-    public function lessThan(string $name, $value): bool
+    public function lessThan(string $name, int $value): bool
     {
         return $this->$name < $value;
     }
 
-    public function greaterThan(string $name, $value): bool
+    public function greaterThan(string $name, int $value): bool
     {
         return $this->$name > $value;
     }
@@ -47,7 +86,7 @@ class Item {
         $this->$name--;
     }
 
-    public function setValue(string $name, int $value)
+    public function setValue(string $name, int $value): void
     {
         $this->$name = $value;
     }
