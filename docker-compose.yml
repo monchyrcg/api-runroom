@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  api_sfl:
+    container_name: api_runroom
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8040:8040"
+      - "9040:9001"
+    volumes:
+      - .:/app
