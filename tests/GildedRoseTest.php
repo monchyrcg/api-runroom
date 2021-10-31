@@ -18,7 +18,7 @@ class GildedRoseTest extends TestCase
   		$gilded_rose = new GildedRose($items);
         $gilded_rose->update_quality();
 
-        $this->assertEquals(4, $items[0]->quality);
+        $this->assertEquals(5, $items[0]->quality);
   	}
 
     /**
